@@ -31,21 +31,6 @@ export const notesService = {
    * Get all notes for a specific physiotherapist
    */
   async getNotesForPhysio(physioId) {
-    // Try Supabase first
-    try {
-      const { data, error } = await supabase
-        .from('therapist_notes')
-        .select('*')
-        .eq('physio_id', physioId)
-        .order('created_at', { ascending: false });
-        
-      if (!error && data) {
-        return { data, error: null };
-      }
-    } catch (e) {
-      // fallback to local
-    }
-
     const allNotes = this.getLocalNotes();
     const physioNotes = allNotes
       .filter((n) => n.physio_id === physioId)

@@ -7,6 +7,7 @@ import { sessionsService } from '../../services/sessionsService';
 import { storageService } from '../../services/storageService';
 import { generatePdf } from '../../components/pdf/PdfGenerator';
 import TreatmentReportTemplate from '../../components/pdf/TreatmentReportTemplate';
+import ExecutiveManualTemplate from '../../components/pdf/ExecutiveManualTemplate';
 import RevenueAuthModal from './components/RevenueAuthModal';
 
 import DashboardTab from './tabs/DashboardTab';
@@ -14,6 +15,7 @@ import PatientsTab from './tabs/PatientsTab';
 import BillingTab from './tabs/BillingTab';
 import AssignmentsTab from './tabs/AssignmentsTab';
 import PhysioTab from './tabs/PhysioTab';
+import PhysioDirectoryPage from '../physio/PhysioDirectoryPage';
 import MailTab from './tabs/MailTab';
 import WhatsAppTab from './tabs/WhatsAppTab';
 import NotesTab from './tabs/NotesTab';
@@ -36,12 +38,14 @@ export const AdminPage = () => {
   const metrics = useAdminMetrics();
   const toast = useToast();
   const pdfRef = useRef(null);
+  const manualRef = useRef(null);
   const isProcessingRef = useRef(false);
 
   const tabs = [
     { id: 'dashboard', label: '📊 Dashboard' },
     { id: 'patients', label: '👥 Patients EHR' },
     { id: 'billing', label: '💳 Financial Ledger' },
+    { id: 'physio', label: '🩺 Therapists Profile' },
     { id: 'assignments', label: '📋 Therapy Plans' },
     { id: 'mail', label: '✉ Email Services' },
     { id: 'whatsapp', label: '💬 WhatsApp Dispatch' },
@@ -163,6 +167,25 @@ export const AdminPage = () => {
     }
   }, [pdfData, reportStep, toast]);
 
+  const handleDownloadManual = async () => {
+    toast.info('Compiling A4 Executive Clinic Manual PDF...');
+    try {
+      if (!manualRef.current) throw new Error('Manual DOM template ref missing.');
+      const blob = await generatePdf(manualRef.current, 'VR_Physio_Clinic_Executive_Manual.pdf');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'VR_Physio_Clinic_Executive_Manual.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      toast.success('Executive Manual PDF compiled and downloaded!');
+    } catch (err) {
+      console.error('Manual print error:', err);
+      toast.error(`Manual PDF print failed: ${err.message}`);
+    }
+  };
+
   const handleOpenMailForPatient = () => {
     setActiveTab('mail');
   };
@@ -184,6 +207,7 @@ export const AdminPage = () => {
             isRevenueUnlocked={isRevenueUnlocked}
             onOpenUnlockModal={() => setIsUnlockModalOpen(true)}
             onLockVault={() => setIsRevenueUnlocked(false)}
+            onDownloadManual={handleDownloadManual}
           />
         );
       case 'patients':
@@ -208,6 +232,8 @@ export const AdminPage = () => {
             onOpenUnlockModal={() => setIsUnlockModalOpen(true)}
           />
         );
+      case 'physio':
+        return <PhysioDirectoryPage isAdminView={true} />;
       case 'assignments':
         return (
           <AssignmentsTab
@@ -262,6 +288,9 @@ export const AdminPage = () => {
               sessions={pdfData.sessions}
             />
           )}
+        </div>
+        <div ref={manualRef}>
+          <ExecutiveManualTemplate />
         </div>
       </div>
 

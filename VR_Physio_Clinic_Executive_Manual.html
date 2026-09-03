@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VR-Physio 2.0 - Official Clinic Executive & Technical Manual</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 15mm 15mm 20mm 15mm;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2937;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+    }
+    .page-container {
+      width: 210mm;
+      margin: 0 auto;
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 15mm 15mm 20mm 15mm;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      background-color: #ffffff;
+    }
+    .clinic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ca9f42;
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+    }
+    .clinic-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #090d16;
+      margin: 0;
+    }
+    .clinic-sub {
+      font-size: 11px;
+      color: #6b7280;
+      margin: 2px 0 0 0;
+    }
+    .doc-title-badge {
+      font-size: 11px;
+      font-weight: bold;
+      color: #ca9f42;
+      background-color: #fef3c7;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #f59e0b;
+      text-transform: uppercase;
+    }
+    .cover-title-block {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .doc-ref {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #4b5563;
+      margin-bottom: 15px;
+    }
+    .main-title {
+      font-size: 26px;
+      font-weight: bold;
+      color: #ca9f42;
+      margin: 0 0 12px 0;
+    }
+    .sub-title {
+      font-size: 14px;
+      color: #4b5563;
+      margin: 0 0 20px 0;
+      line-height: 1.5;
+    }
+    .target-audience {
+      font-size: 13px;
+      color: #111827;
+    }
+    .card-box {
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .section-header {
+      font-size: 15px;
+      font-weight: bold;
+      color: #ca9f42;
+      margin: 0 0 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 4px;
+    }
+    .page-heading {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ca9f42;
+      margin: 10px 0 15px 0;
+      border-bottom: 2px solid #ca9f42;
+      padding-bottom: 4px;
+    }
+    .body-text {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #374151;
+      margin: 0 0 10px 0;
+    }
+    .toc-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .toc-num {
+      font-weight: bold;
+      color: #ca9f42;
+      width: 90px;
+    }
+    .toc-title {
+      flex: 1;
+      font-weight: bold;
+      color: #1f2937;
+    }
+    .toc-page {
+      color: #6b7280;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+    th {
+      background-color: #f3f4f6;
+      padding: 8px;
+      text-align: left;
+      font-weight: bold;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+    }
+    td {
+      padding: 8px;
+      border: 1px solid #e5e7eb;
+      color: #4b5563;
+    }
+    .td-bold {
+      font-weight: bold;
+      color: #111827;
+    }
+    .module-box {
+      background-color: #f9fafb;
+      border-left: 4px solid #ca9f42;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      border-radius: 0 4px 4px 0;
+    }
+    .module-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #111827;
+      margin: 0 0 4px 0;
+    }
+    .sop-box {
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .sop-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #ca9f42;
+      margin: 0 0 6px 0;
+    }
+    .code-snippet {
+      background-color: #1f2937;
+      color: #f9fafb;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-family: monospace;
+      margin: 8px 0;
+    }
+    .signoff-box {
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+    .signature-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    .sig-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 45%;
+    }
+    .sig-line {
+      border-bottom: 1px solid #9ca3af;
+      margin-bottom: 4px;
+    }
+    .meta-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 6px;
+      margin-top: 10px;
+    }
+    @media print {
+      body {
+        background-color: #ffffff;
+        padding: 0;
+      }
+      .page-container {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+
+  <!-- PAGE 1: COVER PAGE & EXECUTIVE SUMMARY -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Executive Manual</div>
+    </div>
+    
+    <div class="cover-title-block">
+      <div class="doc-ref">DOCUMENT REF: VR-DOC-2026-EXEC-01</div>
+      <h1 class="main-title">VR-Physio 2.0 Master Operating Guide</h1>
+      <h3 class="sub-title">Comprehensive System Architecture, Workflow Procedures, Security Controls, and Tech Stack Reference</h3>
+      <p class="target-audience">Prepared Specially for: <strong>Head of Clinic & Executive Management</strong></p>
+    </div>
+
+    <div class="card-box">
+      <h3 class="section-header">1. Executive Summary & Vision</h3>
+      <p class="body-text">
+        VR-Physio 2.0 is an advanced, enterprise-grade Virtual Reality Physiotherapy Administration and Clinical EHR Suite designed for modern rehabilitation clinics. The platform unifies patient intake, daily attendance logging, treatment tracking, granular payment ledgers, therapist roster performance, and automated multi-channel messaging (WhatsApp & Email).
+      </p>
+      <p class="body-text">
+        This manual serves as the authoritative guide for clinic leadership and administrative staff. It outlines system features, security protocols (Role-Based Access Control), operational SOPs, messaging configurations, and technical stack details to ensure 100% operational continuity.
+      </p>
+    </div>
+
+    <div class="meta-footer">
+      <span>Version: 2.0 (Pro Max Edition)</span>
+      <span>Date: September 2026</span>
+      <span>Page 1 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 2: TABLE OF CONTENTS & QUICK SNAPSHOT -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Table of Contents</div>
+    </div>
+
+    <h2 class="page-heading">Table of Contents</h2>
+    
+    <div class="toc-grid">
+      <div class="toc-item">
+        <span class="toc-num">Section 1</span>
+        <span class="toc-title">Master Technology Stack & System Architecture</span>
+        <span class="toc-page">Page 3</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">Section 2</span>
+        <span class="toc-title">Complete Module Directory ("What All Is There")</span>
+        <span class="toc-page">Page 4</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">Section 3</span>
+        <span class="toc-title">Role-Based Security & Restricted Revenue Vault</span>
+        <span class="toc-page">Page 5</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">Section 4</span>
+        <span class="toc-title">Standard Operating Procedures (SOPs & Daily Workflows)</span>
+        <span class="toc-page">Page 6</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">Section 5</span>
+        <span class="toc-title">WhatsApp & Email Integration Setup Guide</span>
+        <span class="toc-page">Page 7</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-num">Section 6</span>
+        <span class="toc-title">Troubleshooting, System Maintenance & Sign-off</span>
+        <span class="toc-page">Page 8</span>
+      </div>
+    </div>
+
+    <div class="card-box">
+      <h3 class="section-header">Quick System Snapshot</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Module Name</th>
+            <th>Primary Purpose</th>
+            <th>Authorized Personnel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">📊 Admin Command Center</td>
+            <td>Executive dashboard, KPI counters, SVG financial charts</td>
+            <td>Head of Clinic (Restricted Revenue) / Admin</td>
+          </tr>
+          <tr>
+            <td class="td-bold">👥 Patients Directory & EHR</td>
+            <td>360° EHR profile drawers, patient search, intake & case PDFs</td>
+            <td>Receptionist / Admin / Physios</td>
+          </tr>
+          <tr>
+            <td class="td-bold">💳 Financial Ledger & Billing</td>
+            <td>Payment settlements, partial payment modal, CSV export</td>
+            <td>Head of Clinic (PIN Protected) / Receptionist</td>
+          </tr>
+          <tr>
+            <td class="td-bold">🩺 Therapists Details Page</td>
+            <td>Dedicated page for therapist roster, workload tags, notes</td>
+            <td>Receptionist / Head / Therapists</td>
+          </tr>
+          <tr>
+            <td class="td-bold">💬 WhatsApp Dispatcher</td>
+            <td>1-Click Web WhatsApp & Meta API PDF report link dispatch</td>
+            <td>Receptionist / Admin Desk</td>
+          </tr>
+          <tr>
+            <td class="td-bold">📝 Clinical Notes System</td>
+            <td>Dispatch priority alerts & schedule instructions to physios</td>
+            <td>Head of Clinic / Admin Desk</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Confidential - Executive Access</span>
+      <span>Page 2 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 3: TECH STACK & SYSTEM ARCHITECTURE -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Tech Stack</div>
+    </div>
+
+    <h2 class="page-heading">Section 1: Master Technology Stack</h2>
+
+    <div class="card-box">
+      <p class="body-text">
+        VR-Physio 2.0 is engineered with a modern, high-performance tech stack designed for speed, security, and maximum reliability across desktop, tablet, and mobile devices.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Layer / Technology</th>
+            <th>Specific Library / Version</th>
+            <th>Technical Role & Functionality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">Core Frontend Framework</td>
+            <td>React 19.2.7</td>
+            <td>Concurrent UI rendering, fast component lifecycle, zero lag state updates.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Build & Development Tool</td>
+            <td>Vite 8.1.1</td>
+            <td>Ultra-fast Hot Module Replacement (HMR) and optimized ES module bundler.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Client-side Routing</td>
+            <td>React Router DOM v7.18</td>
+            <td>Single Page Application (SPA) routing with lazy-loaded page chunks.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Database & Real-time Cloud</td>
+            <td>Supabase PostgreSQL 2.110</td>
+            <td>Cloud database views (`v_patient_billing`, `v_physio_performance`), Row Level Security.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Cloud Media Storage</td>
+            <td>Supabase Storage Buckets</td>
+            <td>Secure cloud hosting for generated Intake PDFs and Treatment Report PDFs.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">PDF Document Engine</td>
+            <td>html2pdf.js 0.14.0 + jsPDF</td>
+            <td>High-DPI A4 canvas rendering for patient reports, invoices, and clinic forms.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Messaging Protocols</td>
+            <td>WhatsApp Web API & Meta Hooks</td>
+            <td>1-Click Web WhatsApp pre-filled link launcher + Meta Cloud API hook placeholders.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Styling & Aesthetics</td>
+            <td>Vanilla CSS Modules + Glassmorphism</td>
+            <td>Translucent frosted glass design tokens, responsive breakpoints, dark mode optimization.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Section 1: Architecture</span>
+      <span>Page 3 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 4: MODULE DIRECTORY -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Module Directory</div>
+    </div>
+
+    <h2 class="page-heading">Section 2: Complete Module Directory ("What All Is There")</h2>
+
+    <div class="module-box">
+      <h3 class="module-title">1. 📊 Executive Admin Dashboard (`/admin`)</h3>
+      <p class="body-text">
+        The central nerve center of the clinic. Contains executive KPI metric cards (*Total Patients, Active Treatment Plans, Rostered Therapists, Today's Sessions*), visual SVG revenue charts, session velocity histograms, diagnosis distribution breakdowns, and clinical alert banners for inactive cases.
+      </p>
+    </div>
+
+    <div class="module-box">
+      <h3 class="module-title">2. 👥 Patients EHR & 360° Profile Drawer (`/admin` -> Patients EHR)</h3>
+      <p class="body-text">
+        A comprehensive electronic health record directory featuring **Dual View Modes** (Glass Cards Grid View & Dense Data Table View), multi-column search, and a 360° EHR modal displaying full medical history, session logs, pain score tracking, and direct document action shortcuts.
+      </p>
+    </div>
+
+    <div class="module-box">
+      <h3 class="module-title">3. 💳 Financial Ledger & Billing Vault (`/admin` -> Financial Ledger & `/bill`)</h3>
+      <p class="body-text">
+        Tracks total accrued clinic charges, settled payments, outstanding dues, and collection efficiency. Features a **Granular Payment Entry Modal** for partial/advance payments, payment method tagging (*UPI, Cash, Card, Transfer*), and 1-click CSV ledger export.
+      </p>
+    </div>
+
+    <div class="module-box">
+      <h3 class="module-title">4. 🩺 Dedicated Therapists Details Page (`/physio`)</h3>
+      <p class="body-text">
+        A standalone page located directly below Billing & Invoices in the sidebar. Displays therapist performance metrics, active primary patient rosters, conducted session logs, workload capacity tags (*Optimal, Heavy, Available*), clinical notes notifications, and therapist profile CRUD controls with a live SearchBar.
+      </p>
+    </div>
+
+    <div class="module-box">
+      <h3 class="module-title">5. 💬 WhatsApp & ✉ Email Dispatchers</h3>
+      <p class="body-text">
+        Multi-channel patient communication tools. Allows searching patient records and dispatching clinical treatment reports and settled billing statements directly via 1-click Web WhatsApp or automated email dispatches.
+      </p>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Section 2: Modules</span>
+      <span>Page 4 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 5: SECURITY & HEAD ACCESS -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Security Access</div>
+    </div>
+
+    <h2 class="page-heading">Section 3: Security & Head Access Controls</h2>
+
+    <div class="card-box">
+      <h3 class="section-header">Role Separation: Receptionist vs. Head of Clinic</h3>
+      <p class="body-text">
+        VR-Physio 2.0 enforces strict financial privacy. Operational workflows are open to receptionists for daily clinic throughput, while sensitive financial earnings are locked behind the **Executive Revenue Vault**.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Feature / Data Item</th>
+            <th>Receptionist / Desk Staff</th>
+            <th>Head of Clinic (Unlocked PIN)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">Patient Registration & Intake</td>
+            <td>Full Access</td>
+            <td>Full Access</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Session Logging & Attendance</td>
+            <td>Full Access</td>
+            <td>Full Access</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Therapist Roster & Clinical Notes</td>
+            <td>Full Access</td>
+            <td>Full Access</td>
+          </tr>
+          <tr>
+            <td class="td-bold">WhatsApp & Email Dispatchers</td>
+            <td>Full Access</td>
+            <td>Full Access</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Accrued Revenue & Financial Dues</td>
+            <td><span style="color: #d97706; font-weight: bold;">🔒 Masked (Restricted)</span></td>
+            <td><span style="color: #059669; font-weight: bold;">🔓 Fully Unlocked</span></td>
+          </tr>
+          <tr>
+            <td class="td-bold">Interactive SVG Revenue Analytics</td>
+            <td><span style="color: #d97706; font-weight: bold;">🔒 Locked Vault</span></td>
+            <td><span style="color: #059669; font-weight: bold;">🔓 Fully Visible</span></td>
+          </tr>
+          <tr>
+            <td class="td-bold">Therapist Revenue Share Numbers</td>
+            <td><span style="color: #d97706; font-weight: bold;">🔒 Masked</span></td>
+            <td><span style="color: #059669; font-weight: bold;">🔓 Unlocked</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-box">
+      <h3 class="section-header">Master PIN Management Procedure</h3>
+      <p class="body-text">
+        1. <strong>Default Master PIN</strong>: The initial factory security PIN is <strong>1234</strong>.<br/>
+        2. <strong>Unlocking Revenue Vault</strong>: Click <em>"Unlock Revenue Vault"</em> on the Dashboard or Billing summary bar. Enter PIN `1234` and click Unlock.<br/>
+        3. <strong>Changing Master PIN</strong>: Open the Revenue Access modal, click <em>"Change PIN"</em>, enter the current PIN, type the new PIN (min 4 digits), and save.<br/>
+        4. <strong>Locking Financial Vault</strong>: Before stepping away, click <em>"🔒 Lock Financial Vault"</em> in the Admin header to immediately re-mask all financial data.
+      </p>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Section 3: Security</span>
+      <span>Page 5 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 6: SOPS & DAILY WORKFLOWS -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">SOP Procedures</div>
+    </div>
+
+    <h2 class="page-heading">Section 4: Standard Operating Procedures (SOPs)</h2>
+
+    <div class="sop-box">
+      <h3 class="sop-title">SOP 1: New Patient Intake & Registration</h3>
+      <p class="sop-text">
+        1. Navigate to <strong>Patient Intake (`/registration`)</strong>.<br/>
+        2. Fill patient demographic details (Name, Code, Mobile, Email).<br/>
+        3. Select Primary Physiotherapist and Diagnosis.<br/>
+        4. Capture patient signature on the canvas and click <strong>Submit & Generate Intake PDF</strong>.<br/>
+        5. The signed PDF uploads automatically to Supabase storage and prompts an intake email to the patient.
+      </p>
+    </div>
+
+    <div class="sop-box">
+      <h3 class="sop-title">SOP 2: Daily Session Logging & Attendance Stream</h3>
+      <p class="sop-text">
+        1. Navigate to <strong>Session Logger (`/attendance`)</strong>.<br/>
+        2. Search patient by name or code.<br/>
+        3. Select attending therapist, session date, treatment details, and session cost.<br/>
+        4. Click <strong>Save Session Log</strong>. The session automatically updates patient total session counts, ledger accrued totals, and therapist performance stream.
+      </p>
+    </div>
+
+    <div class="sop-box">
+      <h3 class="sop-title">SOP 3: Recording Ledger Payments & Advances</h3>
+      <p class="sop-text">
+        1. Navigate to <strong>Financial Ledger (`/bill`)</strong> or <strong>Patients EHR</strong>.<br/>
+        2. Locate the patient card and click <strong>Record Payment / Advance</strong>.<br/>
+        3. In the Payment Modal, enter payment amount, select payment method (*UPI, Cash, Card, Bank Transfer*), and enter transaction reference.<br/>
+        4. Click <strong>Confirm & Save Payment</strong>. Outstanding dues update instantly.
+      </p>
+    </div>
+
+    <div class="sop-box">
+      <h3 class="sop-title">SOP 4: Dispatching Reports via WhatsApp & Email</h3>
+      <p class="sop-text">
+        1. Navigate to <strong>WhatsApp Dispatch (`/admin` -> WhatsApp)</strong> or <strong>Email Services</strong>.<br/>
+        2. Search patient name.<br/>
+        3. Choose document attachment option (*Treatment Report PDF, Bill Invoice PDF, or Both*).<br/>
+        4. Type optional custom instructions (e.g. appointment reminder).<br/>
+        5. Click <strong>Send via WhatsApp</strong>. Web WhatsApp launches pre-filled with patient details, treatment summary, cost breakdown, and uploaded PDF document link.
+      </p>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Section 4: SOPs</span>
+      <span>Page 6 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 7: WHATSAPP & EMAIL INTEGRATION -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Integration</div>
+    </div>
+
+    <h2 class="page-heading">Section 5: WhatsApp & Email Integration Guide</h2>
+
+    <div class="card-box">
+      <h3 class="section-header">WhatsApp Integration Protocol</h3>
+      <p class="body-text">
+        VR-Physio 2.0 supports a dual WhatsApp dispatch architecture:
+      </p>
+      <p class="body-text">
+        <strong>1. Direct Web WhatsApp Launcher (Default - Zero API Setup Required)</strong>:<br/>
+        Out of the box, clicking "Send via WhatsApp" dynamically renders the patient's A4 Case Report PDF, uploads it to Supabase Storage, and launches `https://api.whatsapp.com/send` pre-filled with formatted text and the public PDF URL. Works immediately on all desktop computers and mobile devices without paying Meta API fees.
+      </p>
+      <p class="body-text">
+        <strong>2. Meta WhatsApp Cloud API Hooks (For Automated Background Messaging)</strong>:<br/>
+        When the clinic registers for official Meta WhatsApp Cloud API credentials, populate the environment keys in `.env` / Vercel configuration:
+      </p>
+
+      <div class="code-snippet">
+# VR-Physio Meta WhatsApp Cloud API Integration Keys
+VITE_WHATSAPP_API_KEY=EAAG...YourMetaApiKey...
+VITE_WHATSAPP_PHONE_ID=10928371928374
+VITE_WHATSAPP_BUSINESS_ACCOUNT_ID=91823719283
+      </div>
+
+      <p class="body-text">
+        The system's `whatsappService.js` automatically detects these keys and triggers background WhatsApp Cloud API messages when available.
+      </p>
+    </div>
+
+    <div class="card-box">
+      <h3 class="section-header">Email Dispatch Architecture</h3>
+      <p class="body-text">
+        Emails are processed via Supabase Edge Function `send-email`. When an admin dispatches an email from <strong>Email Services</strong>, the frontend converts PDF blobs to Base64 attachments and invokes the secure server function to deliver branded emails directly to the patient's inbox.
+      </p>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Section 5: Integration</span>
+      <span>Page 7 of 8</span>
+    </div>
+  </div>
+
+  <!-- PAGE 8: MAINTENANCE & SIGN-OFF -->
+  <div class="page">
+    <div class="clinic-header">
+      <div>
+        <h2 class="clinic-title">VR PHYSIO REHAB PVT. LTD.</h2>
+        <p class="clinic-sub">Aditya Ellen Plaza, Femcity Hospital, Shaikpet Rd, Hyderabad - 500096</p>
+      </div>
+      <div class="doc-title-badge">Acceptance</div>
+    </div>
+
+    <h2 class="page-heading">Section 6: Troubleshooting & System Maintenance</h2>
+
+    <div class="card-box">
+      <h3 class="section-header">Troubleshooting Matrix</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Observed Issue</th>
+            <th>Probable Cause</th>
+            <th>Resolution Step</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">"Roster Sync Issue" Banner</td>
+            <td>Supabase database credentials or network offline.</td>
+            <td>Check internet connection and verify `.env` Supabase URL/Anon key.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">PDF Report Print Fails</td>
+            <td>DOM element ref not mounted during print trigger.</td>
+            <td>Ensure patient card is active before clicking print. Wait 300ms for DOM render.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">WhatsApp Link Not Opening</td>
+            <td>Pop-up blocker active in browser.</td>
+            <td>Allow pop-ups for clinic web domain in browser settings.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Forgotten Head Master PIN</td>
+            <td>PIN changed and forgotten by staff.</td>
+            <td>Clear `vr_physio_master_pin` from browser LocalStorage or reset to default `1234`.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="signoff-box">
+      <h3 class="section-header">Executive Authorization & System Acceptance</h3>
+      <p class="body-text">
+        This manual has been reviewed and accepted as the official operating manual for VR-Physio 2.0 rehab operations.
+      </p>
+
+      <div class="signature-row">
+        <div class="sig-col">
+          <div class="sig-line"></div>
+          <span style="font-size: 11px; font-weight: bold;">Head of Clinic / Medical Director</span>
+          <span style="font-size: 10px; color: #6b7280;">Date: ________________________</span>
+        </div>
+        <div class="sig-col">
+          <div class="sig-line"></div>
+          <span style="font-size: 11px; font-weight: bold;">Lead System Administrator</span>
+          <span style="font-size: 10px; color: #6b7280;">Date: ________________________</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-footer">
+      <span>VR-Physio 2.0 Manual</span>
+      <span>Section 6: Acceptance</span>
+      <span>Page 8 of 8</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

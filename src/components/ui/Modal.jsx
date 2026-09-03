@@ -9,7 +9,8 @@ export const Modal = ({
   children,
   footer,
   className = '',
-  size = 'md' // sm, md, lg, xl
+  size = 'md', // sm, md, lg, xl
+  zIndex
 }) => {
   const modalRef = useRef(null);
 
@@ -44,8 +45,10 @@ export const Modal = ({
     }
   };
 
+  const backdropStyle = zIndex ? { zIndex } : {};
+
   return (
-    <div className={styles.backdrop} onClick={handleBackdropClick}>
+    <div className={styles.backdrop} onClick={handleBackdropClick} style={backdropStyle}>
       <div
         ref={modalRef}
         className={`${styles.modal} ${styles[size]} ${className} glass-panel`}

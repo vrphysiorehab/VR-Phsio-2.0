@@ -53,7 +53,7 @@ export const RevenueAuthModal = ({ isOpen, onClose, onUnlock, currentPin = '1234
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="🔒 Revenue Vault Security Access">
+    <Modal isOpen={isOpen} onClose={onClose} title="🔒 Executive Security Access" zIndex={10000}>
       <div style={styles.container}>
         <div style={styles.headerBadge}>
           <Shield size={36} style={{ color: 'var(--primary)' }} />

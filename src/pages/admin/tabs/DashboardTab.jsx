@@ -1,11 +1,11 @@
 import React from 'react';
-import { Users, ShieldAlert, CreditCard, Activity, Calendar, Lock, Unlock, RefreshCw, FileSpreadsheet } from 'lucide-react';
+import { Users, ShieldAlert, CreditCard, Activity, Calendar, Lock, Unlock, RefreshCw, FileText } from 'lucide-react';
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
 import AdminCharts from '../components/AdminCharts';
 import styles from './DashboardTab.module.css';
 
-export const DashboardTab = ({ metrics, isRevenueUnlocked, onOpenUnlockModal, onLockVault }) => {
+export const DashboardTab = ({ metrics, isRevenueUnlocked, onOpenUnlockModal, onLockVault, onDownloadManual }) => {
   const {
     totalPatients,
     activeTreatments,
@@ -51,6 +51,11 @@ export const DashboardTab = ({ metrics, isRevenueUnlocked, onOpenUnlockModal, on
         </div>
 
         <div className={styles.toolbarRight}>
+          {onDownloadManual && (
+            <Button size="sm" variant="accent" onClick={onDownloadManual}>
+              <FileText size={13} style={{ marginRight: 4 }} /> Executive Manual PDF
+            </Button>
+          )}
           <Button size="sm" variant="secondary" onClick={refresh}>
             <RefreshCw size={13} style={{ marginRight: 4 }} /> Refresh Stream
           </Button>
