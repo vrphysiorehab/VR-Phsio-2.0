@@ -369,7 +369,7 @@ export const PhysioProfileWizardModal = ({ isOpen, onClose, physio, profileData,
 
               <div style={styles.inputGroup}>
                 <label style={styles.label}>57. Professional References</label>
-                <textarea rows={2} value={formData.references || ''} onChange={(e) => updateField('references', e.target.value)} style={styles.textArea} />
+                <textarea rows={2} value={formData.professional_references || formData.references || ''} onChange={(e) => updateField('professional_references', e.target.value)} style={styles.textArea} />
               </div>
             </div>
           )}
