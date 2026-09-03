@@ -53,6 +53,23 @@ export const physioProfileService = {
       updated_at: new Date().toISOString()
     };
 
+    // Save locally
+    const localMap = this.getLocalProfiles();
+    localMap[physioId] = fullData;
+    this.saveLocalProfiles(localMap);
+
+    // Sync photo_url to physiotherapists table in Supabase if photo_url is provided
+    if (profileData.photo_url) {
+      try {
+        await supabase
+          .from('physiotherapists')
+          .update({ photo_url: profileData.photo_url })
+          .eq('id', physioId);
+      } catch (e) {
+        // silent sync
+      }
+    }
+
     try {
       const { data, error } = await supabase
         .from('physiotherapist_profiles')
@@ -60,18 +77,14 @@ export const physioProfileService = {
         .select();
 
       if (!error && data) {
-        const localMap = this.getLocalProfiles();
         localMap[physioId] = data[0];
         this.saveLocalProfiles(localMap);
         return { data: data[0], error: null };
       }
     } catch (e) {
-      // fallback to local
+      // local fallback
     }
 
-    const localMap = this.getLocalProfiles();
-    localMap[physioId] = fullData;
-    this.saveLocalProfiles(localMap);
     return { data: fullData, error: null };
   },
 

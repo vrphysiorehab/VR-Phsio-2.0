@@ -4,6 +4,7 @@ import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
 import { User, Shield, Award, Briefcase, CreditCard, CheckCircle, ChevronRight, ChevronLeft, Upload, FileText, Camera, Check, Save } from 'lucide-react';
+import compressImage from '../../../utils/imageCompressor';
 
 export const PhysioProfileWizardModal = ({ isOpen, onClose, physio, profileData, onSave, mutating }) => {
   const [step, setStep] = useState(1);
@@ -31,14 +32,23 @@ export const PhysioProfileWizardModal = ({ isOpen, onClose, physio, profileData,
     setFormData((prev) => ({ ...prev, [field]: val }));
   };
 
-  const handleFileUpload = (field, event) => {
+  const handleFileUpload = async (field, event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        updateField(field, reader.result);
-      };
-      reader.readAsDataURL(file);
+      if (file.type.startsWith('image/')) {
+        try {
+          const compressed = await compressImage(file, 600, 600, 0.85);
+          updateField(field, compressed);
+        } catch (e) {
+          const reader = new FileReader();
+          reader.onloadend = () => updateField(field, reader.result);
+          reader.readAsDataURL(file);
+        }
+      } else {
+        const reader = new FileReader();
+        reader.onloadend = () => updateField(field, reader.result);
+        reader.readAsDataURL(file);
+      }
     }
   };
 
