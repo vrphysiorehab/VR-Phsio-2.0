@@ -1,0 +1,156 @@
+.container {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-xl);
+  height: calc(100vh - var(--header-height) - 2 * var(--space-xl));
+}
+
+.sidebarSection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.contentSection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.patientList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  overflow-y: auto;
+  max-height: calc(100vh - 350px);
+  padding-right: 4px;
+}
+
+.patientItem {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  gap: 2px;
+}
+
+.patientItem:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.selectedItem {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+
+.patientDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patientName {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.patientCode {
+  font-size: var(--text-xs);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.patientPhone {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.searchState {
+  padding: var(--space-md) 0;
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.selectPrompt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--text-secondary);
+}
+
+.selectPrompt h3 {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.centeredState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.recordsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.patientHeader {
+  padding: var(--space-md) var(--space-lg);
+  border-left: 5px solid var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.headerDetails h1 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-xs);
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--space-md);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  align-items: center;
+}
+
+.metaBadge {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .patientList {
+    max-height: 200px;
+  }
+}
